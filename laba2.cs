@@ -89,8 +89,7 @@ namespace ZooApp {
   }
 
   // Класс земноводного
-  public class Amphibian : Animal
-  {
+  public class Amphibian : Animal {
     public string SkinMoisture { get; set; }
 
     public Amphibian(string name, int age, string habitat, string diet, string skinMoisture)
@@ -108,7 +107,10 @@ namespace ZooApp {
   
     private static AnimalManager s_instance;
     private List<Animal> _animals;
+    //переменная для проверки наличия животных
     private const int absenceOfAnimals = 0;
+    //переменная для проверки корректности введенных данных
+    private const int incorrectData = 0;
 
     private AnimalManager() {
       _animals = new List<Animal>();
@@ -150,7 +152,7 @@ namespace ZooApp {
         return;
       }
       
-      if (animalIndex >= 0 && animalIndex < _animals.Count) {
+      if (animalIndex >= absenceOfAnimals && animalIndex < _animals.Count) {
         Console.WriteLine(_animals[animalIndex].GetInfo());
       } else {
         Console.WriteLine("Animal with the specified number not found");
@@ -249,7 +251,7 @@ namespace ZooApp {
     private static void FindAnimalByIndex(AnimalManager manager) {
       
       Console.Write("Enter animal number: ");
-      if (int.TryParse(Console.ReadLine(), out int animalNumber) && animalNumber > 0) {
+      if (int.TryParse(Console.ReadLine(), out int animalNumber) && animalNumber > incorrectData) {
         manager.ShowAnimalByIndex(animalNumber - 1);
       } else {
         Console.WriteLine("Please enter a valid positive number");
@@ -302,7 +304,7 @@ namespace ZooApp {
       string animalName = Console.ReadLine();
 
       Console.Write("Enter age: ");
-      if (!int.TryParse(Console.ReadLine(), out int animalAge) || animalAge < 0) {
+      if (!int.TryParse(Console.ReadLine(), out int animalAge) || animalAge < incorrectData) {
         Console.WriteLine("Invalid age format");
         return null;
       }
@@ -320,7 +322,7 @@ namespace ZooApp {
       }
       else if (animalType == BirdType) {
         Console.Write("Wingspan (m): ");
-        if (!double.TryParse(Console.ReadLine(), out double wingSpan) || wingSpan < 0) {
+        if (!double.TryParse(Console.ReadLine(), out double wingSpan) || wingSpan < incorrectData) {
           Console.WriteLine("Invalid wingspan format");
           return null;
         }
